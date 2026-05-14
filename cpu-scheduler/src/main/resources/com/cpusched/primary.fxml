@@ -33,10 +33,13 @@
         <!-- Process Input Form Card -->
         <VBox styleClass="card" spacing="10">
             <Label text="PROCESS INPUT FORM" styleClass="card-label"/>
-            <ScrollPane fitToWidth="true" prefHeight="320" maxHeight="420" alignment="TOP_LEFT"
-                        style="-fx-background: transparent;" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
-                <VBox fx:id="processInputContainer" spacing="0" style="-fx-padding: 0;"/>
+            <ScrollPane fitToWidth="true" prefHeight="320" maxHeight="420"
+            style="-fx-background: transparent;" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+                <content>
+                    <VBox fx:id="processInputContainer" spacing="0" style="-fx-padding: 0;" alignment="TOP_LEFT"/>
+                </content>
             </ScrollPane>
+
         </VBox>
 
         <!-- Algorithm Card -->
