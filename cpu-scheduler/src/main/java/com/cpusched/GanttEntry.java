@@ -1,6 +1,6 @@
 package com.cpusched;
 
-// Represents a single block on the Gantt Chart
+
 public class GanttEntry {
     private String processId;
     private int startTime;

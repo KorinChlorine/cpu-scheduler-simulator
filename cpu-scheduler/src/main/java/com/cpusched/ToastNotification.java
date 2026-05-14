@@ -17,13 +17,13 @@ import javafx.util.Duration;
 public class ToastNotification {
 
     private static final String STYLE_SUCCESS =
-        "-fx-background-color: #3a1e1e; -fx-border-color: #4ecca3; -fx-border-width: 1;" +
+        "-fx-background-color: #f0e4d0; -fx-border-color: #4ecca3; -fx-border-width: 1;" +
         "-fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 10 16;";
     private static final String STYLE_ERROR =
-        "-fx-background-color: #3a1e1e; -fx-border-color: #e94560; -fx-border-width: 1;" +
+        "-fx-background-color: #f0e4d0; -fx-border-color: #e94560; -fx-border-width: 1;" +
         "-fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 10 16;";
-    private static final String TEXT_SUCCESS = "-fx-text-fill: #4ecca3; -fx-font-family: Consolas; -fx-font-size: 12;";
-    private static final String TEXT_ERROR   = "-fx-text-fill: #e94560; -fx-font-family: Consolas; -fx-font-size: 12;";
+    private static final String TEXT_SUCCESS = "-fx-text-fill: #5c3317; -fx-font-family: Consolas; -fx-font-size: 12;";
+    private static final String TEXT_ERROR   = "-fx-text-fill: #5c3317; -fx-font-family: Consolas; -fx-font-size: 12;";
 
     private final StackPane overlay;
 

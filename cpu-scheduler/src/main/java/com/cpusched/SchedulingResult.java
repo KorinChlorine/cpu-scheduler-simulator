@@ -2,7 +2,6 @@ package com.cpusched;
 
 import java.util.List;
 
-// Encapsulates the output of a CPU scheduling simulation
 public class SchedulingResult {
     private List<GanttEntry> ganttChart;
     private List<Process> processes;

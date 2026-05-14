@@ -1,19 +1,17 @@
 /* ============================================================
-   ROOT — Complete color overhaul (lighter, warmer, readable)
-   Enhanced: larger fonts, responsive em-based sizing, richer
-   hover/focus states for JavaFX animation hooks
+   ROOT 
    ============================================================ */
 .root {
     /* Backgrounds — warm linen palette */
     -espresso:          linear-gradient(to bottom right, #c9a882, #e8d5bf, #f5ede0);
-    -espresso-solid:    #f0e4d0;
+    -espresso-solid:    #eedfc6;
     -dark-roast:        rgba(245, 207, 93, 0.55);
     -medium-roast:      rgba(180, 130, 90, 0.18);
 
     /* Text */
     -caramel:           #5c3317;
     -milk-foam:         #3d1f0a;
-    -cream:             #ffffff;
+    -cream:             #5c3317;
     -latte:             #8a6040;
 
     /* Borders */
@@ -38,9 +36,8 @@
     -scrollbar-track:   rgba(180, 140, 100, 0.2);
     -scrollbar-thumb:   rgba(140, 95, 55, 0.4);
 
-    /* Base font size — bump up for readability */
     -fx-font-family: 'Segoe UI', system-ui, sans-serif;
-    -fx-font-size: 14;                  /* was implicit 12; now 14 base */
+    -fx-font-size: 14;              
     -fx-background-color: -espresso;
 }
 
@@ -62,7 +59,6 @@
 
 /* ============================================================
    HEADER BAR
-   Hover: lift shadow — Java FadeTransition / ScaleTransition
    ============================================================ */
 .header-bar {
     -fx-background-color: rgba(100, 58, 25, 0.90);
@@ -105,7 +101,7 @@
    ============================================================ */
 .page-title {
     -fx-font-family: 'Segoe UI';
-    -fx-font-size: 26;                  /* was 20 */
+    -fx-font-size: 26;                 
     -fx-font-weight: BOLD;
     -fx-text-fill: -caramel;
     -fx-effect: dropshadow(gaussian, rgba(140,80,20,0.15), 6, 0.1, 0, 2);
@@ -113,7 +109,7 @@
 
 .page-subtitle {
     -fx-font-family: 'Segoe UI';
-    -fx-font-size: 14;                  /* was 12 */
+    -fx-font-size: 14;                 
     -fx-text-fill: -latte;
 }
 
@@ -125,8 +121,6 @@
 
 /* ============================================================
    CARDS
-   Animate: translateY on hover via Java TranslateTransition
-             shadow pulse via DropShadow.radiusProperty timeline
    ============================================================ */
 .card {
     -fx-background-color: #f0e4d0;
@@ -139,7 +133,6 @@
     -fx-effect: dropshadow(gaussian, rgba(100, 60, 20, 0.12), 10, 0, 0, 3);
 }
 
-/* Stronger lift + glow on hover — Java TranslateTransition(-2) + timeline shadow */
 .card:hover {
     -fx-translate-y: -3;
     -fx-border-color: rgba(140, 95, 55, 0.60);
@@ -153,7 +146,7 @@
 
 .card-label {
     -fx-font-family: 'Segoe UI';
-    -fx-font-size: 13;                  /* was 11 */
+    -fx-font-size: 13;                  
     -fx-font-weight: BOLD;
     -fx-text-fill: -latte;
     -fx-padding: 0 0 3 0;
@@ -162,7 +155,6 @@
 
 /* ============================================================
    TABLE VIEW
-   Animate: row highlight via Java FadeTransition on selection
    ============================================================ */
 .table-view {
     -fx-background-color: #f0e4d0;
@@ -180,12 +172,12 @@
     -fx-background-color: rgba(140, 90, 45, 0.14);
     -fx-border-color: rgba(160, 110, 65, 0.22);
     -fx-border-width: 0 1 1 0;
-    -fx-size: 40;                       /* was 34; taller header rows */
+    -fx-size: 40;                      
 }
 
 .table-view .column-header .label {
     -fx-font-family: 'Segoe UI';
-    -fx-font-size: 13;                  /* was 11 */
+    -fx-font-size: 13;                  
     -fx-font-weight: BOLD;
     -fx-text-fill: -caramel;
     -fx-alignment: CENTER_LEFT;
@@ -194,7 +186,7 @@
 
 .table-view .table-cell {
     -fx-font-family: 'Consolas';
-    -fx-font-size: 13;                  /* was 12 */
+    -fx-font-size: 13;                  
     -fx-text-fill: -milk-foam;
     -fx-background-color: transparent;
     -fx-padding: 6 10;
@@ -205,14 +197,13 @@
 .table-row-cell {
     -fx-background-color: transparent;
     -fx-text-fill: -milk-foam;
-    -fx-pref-height: 38;                /* taller rows — was auto ~28 */
+    -fx-pref-height: 38;                
 }
 
 .table-row-cell:odd {
     -fx-background-color: rgba(180, 130, 80, 0.08);
 }
 
-/* Animate hover via Java FadeTransition or simple CSS state */
 .table-row-cell:hover {
     -fx-background-color: rgba(180, 130, 80, 0.20);
     -fx-effect: dropshadow(gaussian, rgba(140, 90, 30, 0.12), 0, 0, 0, 0);
@@ -258,7 +249,6 @@
     -fx-background-radius: 5;
 }
 
-/* Animate: Java ScaleTransition(1.0→1.3) on thumb hover */
 .scroll-bar .thumb:hover {
     -fx-background-color: rgba(140, 95, 55, 0.72);
     -fx-effect: dropshadow(gaussian, rgba(140, 95, 55, 0.30), 4, 0.3, 0, 0);
@@ -275,7 +265,6 @@
 
 /* ============================================================
    SPINNER
-   Animate: border glow via Java Timeline on focused
    ============================================================ */
 .spinner {
     -fx-background-color: rgba(255, 255, 255, 0.80);
@@ -283,14 +272,14 @@
     -fx-border-width: 1;
     -fx-border-radius: 7;
     -fx-background-radius: 7;
-    -fx-pref-height: 38;                /* bigger tap target */
+    -fx-pref-height: 38;                
 }
 
 .spinner .text-field {
     -fx-background-color: transparent;
     -fx-text-fill: -caramel;
     -fx-font-family: 'Consolas';
-    -fx-font-size: 14;                  /* was 13 */
+    -fx-font-size: 14;               
     -fx-padding: 6 10;
 }
 
@@ -313,7 +302,7 @@
     -fx-background-color: -caramel;
 }
 
-/* Animate: Java Timeline pulsing DropShadow on focus */
+
 .spinner:focused {
     -fx-border-color: -caramel;
     -fx-border-width: 2;
@@ -323,7 +312,6 @@
 
 /* ============================================================
    COMBO BOX
-   Animate: dropdown reveal via Java FadeTransition + TranslateTransition
    ============================================================ */
 .combo-box {
     -fx-background-color: rgba(255, 255, 255, 0.80);
@@ -336,7 +324,7 @@
 
 .combo-box .list-cell {
     -fx-font-family: 'Segoe UI';
-    -fx-font-size: 13;                  /* was 12 */
+    -fx-font-size: 13;                  
     -fx-text-fill: -caramel;
     -fx-background-color: transparent;
     -fx-padding: 6 12;
@@ -500,8 +488,6 @@
 
 /* ============================================================
    STAT CARDS
-   Animate: Java Timeline pulsing border glow on result arrival
-            ScaleTransition(1.0→1.03) on hover
    ============================================================ */
 .stat-card {
     -fx-background-color: #f0e4d0;
@@ -570,13 +556,13 @@
    GANTT AREA
    ============================================================ */
 .gantt-box {
-    -fx-background-color: #f0e4d0;
+    -fx-background-color: #ffeac5;
     -fx-background-radius: 8;
     -fx-padding: 10 6 6 6;
 }
 
 .gantt-canvas-wrap {
-    -fx-background-color: #f0e4d0;
+    -fx-background-color: #ffeac5;
     -fx-padding: 6;
     -fx-background-radius: 8;
 }
@@ -584,11 +570,10 @@
 
 /* ============================================================
    COMPUTATION BREAKDOWN (formulaArea)
-   Animate: Java FadeTransition(0→1) when content populates
    ============================================================ */
 .formula-area {
     -fx-font-family: 'Consolas';
-    -fx-font-size: 13;                  /* was 11 */
+    -fx-font-size: 13;               
     -fx-background-color: #f0e4d0;
     -fx-control-inner-background: #f0e4d0;
     -fx-text-fill: #7a3d10;
@@ -608,8 +593,7 @@
 
 
 /* ============================================================
-   FORM INPUT (process table text fields)
-   Animate: Java Timeline pulsing DropShadow on focus
+   FORM INPUT
    ============================================================ */
 .form-input {
     -fx-background-color: rgba(255, 255, 255, 0.85);
@@ -726,7 +710,6 @@
 
 /* ============================================================
    COMPARE MODE
-   Animate: Java Timeline pulsing border glow on best result
    ============================================================ */
 .compare-best {
     -fx-border-color: #8c5a2a;
@@ -742,34 +725,22 @@
 
 /* ============================================================
    JAVA ANIMATION HOOKS — pseudo-class states for Timeline use
-   Apply these styleClasses from Java when animations fire:
-
-   node.getStyleClass().add("animating-pulse")   → pulsing shadow
-   node.getStyleClass().add("animating-fadein")  → used with FadeTransition
-   node.getStyleClass().add("animating-highlight")→ row/card result highlight
-
-   These are CSS anchors; actual motion is in Java Timeline/Transition.
    ============================================================ */
 
-/* Result arrival: bright warm highlight, fade out via Java FadeTransition */
 .animating-highlight {
     -fx-background-color: rgba(245, 190, 80, 0.35);
     -fx-effect: dropshadow(gaussian, rgba(200, 150, 40, 0.55), 18, 0.3, 0, 0);
 }
 
-/* Continuous pulse — Java Timeline toggling border-width or shadow radius */
 .animating-pulse {
     -fx-border-color: rgba(160, 110, 50, 0.90);
     -fx-effect: dropshadow(gaussian, rgba(160, 110, 50, 0.60), 20, 0.35, 0, 0);
 }
 
-/* Fade-in anchor — node starts opacity:0 in Java, FadeTransition to 1 */
 .animating-fadein {
     -fx-opacity: 0;
 }
 
-/* Slide-in anchor — node starts translateY:20 in Java,
-   TranslateTransition to 0 with easing */
 .animating-slidein {
     -fx-translate-y: 20;
     -fx-opacity: 0;

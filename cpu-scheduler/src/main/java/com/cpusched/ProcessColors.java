@@ -6,10 +6,7 @@ import java.util.Map;
 
 import javafx.scene.paint.Color;
 
-/**
- * Fixed vibrant color palette assigned to process IDs.
- * Ensures the same process always gets the same color across views.
- */
+
 public class ProcessColors {
 
     public static final String IDLE_HEX = "#2a2a4a";
@@ -27,10 +24,7 @@ private static final String[] PALETTE = {
     "#6d597a"   // Berry Infusion (Muted Purple)
 };
 
-    /**
-     * Build a stable processId → hex color map from a gantt list.
-     * IDLE always maps to IDLE_HEX.
-     */
+
     public static Map<String, String> buildColorMap(List<GanttEntry> gantt) {
         Map<String, String> map = new HashMap<>();
         int idx = 0;
@@ -43,7 +37,6 @@ private static final String[] PALETTE = {
         return map;
     }
 
-    /** Build a color map from a list of process IDs (ordered). */
     public static Map<String, String> buildColorMap(List<String> ids, boolean unused) {
         Map<String, String> map = new HashMap<>();
         int idx = 0;

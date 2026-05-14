@@ -3,10 +3,7 @@ package com.cpusched;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Centralized registry of all supported scheduling algorithms.
- * Single source of truth for names, flags, and dispatch logic.
- */
+
 public class AlgorithmRegistry {
 
     public enum AlgoId {
@@ -27,7 +24,7 @@ public class AlgorithmRegistry {
         new AlgorithmMeta(AlgoId.RR,          "4. Round Robin",                               true,  false),
         new AlgorithmMeta(AlgoId.PRIORITY,    "5. Priority Scheduling (Non-Preemptive)",      false, true),
         new AlgorithmMeta(AlgoId.PRIORITY_RR, "6. Priority Scheduling + Round Robin",         true,  true),
-        new AlgorithmMeta(AlgoId.COMPARE_ALL, "7. ★ Compare All Algorithms",                  true,  true)
+        new AlgorithmMeta(AlgoId.COMPARE_ALL, "7. Compare All Algorithms",                  true,  true)
     );
 
     public static AlgorithmMeta get(int index) {

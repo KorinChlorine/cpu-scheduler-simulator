@@ -31,7 +31,7 @@
         </VBox>
 
         <!-- Process Input Form Card -->
-        <VBox styleClass="card" spacing="10">
+        <VBox styleClass="card" spacing="10" >
             <Label text="PROCESS INPUT FORM" styleClass="card-label"/>
             <ScrollPane fitToWidth="true" prefHeight="320" maxHeight="420"
             style="-fx-background: transparent;" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
@@ -73,23 +73,23 @@
                     <VBox spacing="8" style="-fx-padding: 12;">
                         <Label wrapText="true"
                             text="Demonstrates CPU scheduling algorithms used by operating systems. Visualizes process execution order based on arrival time, burst time, priority, and time quantum."
-                            style="-fx-text-fill: #c87941; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                            style="-fx-text-fill: #c87941; -fx-font-family: 'Milk Choco', 'Segoe UI', system-ui, sans-serif; -fx-font-size: 12;"/>
                         <Label wrapText="true" text="FCFS: Non-preemptive. Execute in arrival order. Simple but can cause convoy effect."
-                            style="-fx-text-fill: #a07860; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                            style="-fx-text-fill: #a07860; -fx-font-family: 'Milk Choco', 'Segoe UI', system-ui, sans-serif; -fx-font-size: 12;"/>
                         <Label wrapText="true" text="SJF: Shortest burst time first. Minimizes avg WT but risks starvation."
-                            style="-fx-text-fill: #a07860; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                            style="-fx-text-fill: #a07860; -fx-font-family: 'Milk Choco', 'Segoe UI', system-ui, sans-serif; -fx-font-size: 12;"/>
                         <Label wrapText="true" text="SRT: Preemptive SJF. More responsive. Higher context-switch overhead."
-                            style="-fx-text-fill: #a07860; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                            style="-fx-text-fill: #a07860; -fx-font-family: 'Milk Choco', 'Segoe UI', system-ui, sans-serif; -fx-font-size: 12;"/>
                         <Label wrapText="true" text="Round Robin: Each process gets a time quantum. Fair for time-sharing systems."
-                            style="-fx-text-fill: #a07860; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                            style="-fx-text-fill: #a07860; -fx-font-family: 'Milk Choco', 'Segoe UI', system-ui, sans-serif; -fx-font-size: 12;"/>
                         <Label wrapText="true" text="Priority: Higher priority (lower number) executes first."
-                            style="-fx-text-fill: #a07860; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                            style="-fx-text-fill: #a07860; -fx-font-family: 'Milk Choco', 'Segoe UI', system-ui, sans-serif; -fx-font-size: 12;"/>
                         <Label wrapText="true" text="★ Compare All: Runs all 6 algorithms side-by-side and highlights best results."
-                            style="-fx-text-fill: #c87941; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12; -fx-font-weight: bold;"/>
+                            style="-fx-text-fill: #c87941; -fx-font-family: 'Milk Choco', 'Segoe UI', system-ui, sans-serif; -fx-font-size: 12; -fx-font-weight: bold;"/>
                         <Label wrapText="true" text="Metrics:  WT = TAT − BT   |   TAT = CT − AT   |   CT = completion time"
-                            style="-fx-text-fill: #c87941; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12; -fx-font-weight: bold;"/>
+                            style="-fx-text-fill: #c87941; -fx-font-family: 'Milk Choco', 'Segoe UI', system-ui, sans-serif; -fx-font-size: 12; -fx-font-weight: bold;"/>
                         <Label wrapText="true" text="Developer: Kharl Asuncion"
-                            style="-fx-text-fill: #c87941; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12; -fx-font-weight: bold;"/>
+                            style="-fx-text-fill: #c87941; -fx-font-family: 'Milk Choco', 'Segoe UI', system-ui, sans-serif; -fx-font-size: 12; -fx-font-weight: bold;"/>
                     </VBox>
                 </content>
             </ScrollPane>

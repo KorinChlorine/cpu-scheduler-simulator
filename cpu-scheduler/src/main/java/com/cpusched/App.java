@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -14,10 +15,16 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 720, 800);
+        scene = new Scene(loadFXML("primary"), 800, 900);
         stage.setTitle("CPU Scheduling Simulator");
-        stage.setMinWidth(680);
-        stage.setMinHeight(800);
+        stage.setMinWidth(800);
+        stage.setMinHeight(900);
+                try {
+            Image icon = new Image(App.class.getResourceAsStream("app-icon.jpg"));
+            stage.getIcons().add(icon);
+        } catch (Exception e) {
+            // Icon not found, continue without it
+        }
         stage.setScene(scene);
         stage.show();
     }
