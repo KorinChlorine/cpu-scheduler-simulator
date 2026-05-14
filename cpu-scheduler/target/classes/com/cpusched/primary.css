@@ -1,0 +1,884 @@
+/* ============================================================
+   BENTO BOX ESPRESSO THEME
+   JavaFX CSS — warm linen palette with bento grid layout
+   ============================================================ */
+
+/* ============================================================
+   CUSTOM FONT IMPORTS
+   Load in Java via: Font.loadFont(getClass().getResourceAsStream("/fonts/..."), 14);
+   Or use @font-face if your JavaFX version supports it.
+   ============================================================ */
+
+/* ============================================================
+   ROOT 
+   ============================================================ */
+.root {
+    /* Backgrounds — warm linen palette */
+    -espresso:          linear-gradient(to bottom right, #c9a882, #e8d5bf, #f5ede0);
+    -espresso-solid:    #f0e4d0;
+    -bento-bg:          #e6d5c3;
+    -dark-roast:        rgba(245, 207, 93, 0.55);
+    -medium-roast:      rgba(180, 130, 90, 0.18);
+
+    /* Text */
+    -caramel:           #5c3317;
+    -milk-foam:         #3d1f0a;
+    -cream:             #ffffff;
+    -latte:             #8a6040;
+
+    /* Borders */
+    -roast-border:      rgba(140, 95, 55, 0.35);
+    -bento-gap:         #d4c4b0;
+
+    /* Accent glows — richer for animation hover states */
+    -caramel-glow:      rgba(160, 90, 20, 0.65);
+    -caramel-glow-soft: rgba(160, 90, 20, 0.35);
+    -caramel-focus:     rgba(160, 90, 20, 0.18);
+    -caramel-glow-deep: rgba(120, 60, 10, 0.55);
+
+    /* Gantt / breakdown panel */
+    -gantt-bg:          #1c1008;
+    -gantt-text:        #e8c87a;
+    -gantt-border:      #3a2010;
+
+    /* Stat card accent borders */
+    -stat-wt-border:    #8c5a2a;
+    -stat-tat-border:   #b07840;
+
+    /* Scrollbar */
+    -scrollbar-track:   rgba(180, 140, 100, 0.2);
+    -scrollbar-thumb:   rgba(140, 95, 55, 0.4);
+
+    /* Custom font — load via Java Font.loadFont() first */
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI', system-ui, sans-serif;
+    -fx-font-size: 14;
+    -fx-background-color: -bento-bg;
+}
+
+
+/* ============================================================
+   BENTO GRID CONTAINER
+   Apply to your root GridPane/VBox wrapper
+   ============================================================ */
+.bento-grid {
+    -fx-background-color: -bento-bg;
+    -fx-padding: 16;
+    -fx-hgap: 12;
+    -fx-vgap: 12;
+}
+
+.bento-container {
+    -fx-background-color: -bento-bg;
+    -fx-spacing: 12;
+    -fx-padding: 16;
+}
+
+
+/* ============================================================
+   BENTO CELLS — distinct compartment sizes
+   Use these as style classes on your GridPane children
+   ============================================================ */
+
+/* Base bento cell styling */
+.bento-cell {
+    -fx-background-color: #f8f0e6;
+    -fx-background-radius: 20;
+    -fx-padding: 20;
+    -fx-border-color: rgba(180, 140, 100, 0.15);
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(100, 60, 20, 0.08), 12, 0, 0, 4);
+}
+
+.bento-cell:hover {
+    -fx-translate-y: -2;
+    -fx-effect: dropshadow(gaussian, rgba(100, 60, 20, 0.18), 20, 0.08, 0, 8);
+}
+
+/* Small square cell — icons, single stats */
+.bento-cell-sm {
+    -fx-background-color: #f8f0e6;
+    -fx-background-radius: 18;
+    -fx-padding: 16;
+    -fx-min-width: 120;
+    -fx-min-height: 120;
+    -fx-max-width: 160;
+    -fx-max-height: 160;
+    -fx-border-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(100, 60, 20, 0.08), 10, 0, 0, 3);
+}
+
+/* Medium cell — stat cards, controls */
+.bento-cell-md {
+    -fx-background-color: #f8f0e6;
+    -fx-background-radius: 20;
+    -fx-padding: 20;
+    -fx-min-width: 200;
+    -fx-min-height: 140;
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(100, 60, 20, 0.08), 12, 0, 0, 4);
+}
+
+/* Large cell — tables, main content */
+.bento-cell-lg {
+    -fx-background-color: #f8f0e6;
+    -fx-background-radius: 24;
+    -fx-padding: 24;
+    -fx-min-height: 280;
+    -fx-border-radius: 24;
+    -fx-effect: dropshadow(gaussian, rgba(100, 60, 20, 0.10), 16, 0, 0, 5);
+}
+
+/* Wide cell — spans 2 columns */
+.bento-cell-wide {
+    -fx-background-color: #f8f0e6;
+    -fx-background-radius: 22;
+    -fx-padding: 22;
+    -fx-min-height: 160;
+    -fx-border-radius: 22;
+    -fx-effect: dropshadow(gaussian, rgba(100, 60, 20, 0.10), 14, 0, 0, 4);
+}
+
+/* Tall cell — spans 2 rows */
+.bento-cell-tall {
+    -fx-background-color: #f8f0e6;
+    -fx-background-radius: 22;
+    -fx-padding: 22;
+    -fx-min-width: 180;
+    -fx-border-radius: 22;
+    -fx-effect: dropshadow(gaussian, rgba(100, 60, 20, 0.10), 14, 0, 0, 4);
+}
+
+/* Hero cell — full width header/feature area */
+.bento-cell-hero {
+    -fx-background-color: linear-gradient(to bottom right, #8b5a30, #5c3317);
+    -fx-background-radius: 24;
+    -fx-padding: 28 32;
+    -fx-min-height: 120;
+    -fx-border-radius: 24;
+    -fx-effect: dropshadow(gaussian, rgba(60, 30, 10, 0.25), 20, 0.1, 0, 6);
+}
+
+.bento-cell-hero:hover {
+    -fx-effect: dropshadow(gaussian, rgba(60, 30, 10, 0.35), 28, 0.15, 0, 8);
+}
+
+/* Accent cell — highlighted/featured content */
+.bento-cell-accent {
+    -fx-background-color: linear-gradient(to bottom right, #d4a574, #c49464);
+    -fx-background-radius: 20;
+    -fx-padding: 20;
+    -fx-border-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(140, 90, 40, 0.20), 14, 0.08, 0, 4);
+}
+
+/* Muted cell — secondary info */
+.bento-cell-muted {
+    -fx-background-color: rgba(255, 255, 255, 0.45);
+    -fx-background-radius: 18;
+    -fx-padding: 18;
+    -fx-border-color: rgba(180, 140, 100, 0.20);
+    -fx-border-width: 1;
+    -fx-border-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(100, 60, 20, 0.05), 8, 0, 0, 2);
+}
+
+
+/* ============================================================
+   ROOT CONTAINERS
+   ============================================================ */
+.root-vbox {
+    -fx-background-color: -bento-bg;
+    -fx-spacing: 12;
+    -fx-padding: 16;
+}
+
+.result-scroll-content {
+    -fx-padding: 16;
+    -fx-background-color: -bento-bg;
+}
+
+
+/* ============================================================
+   HEADER BAR — fits as hero bento cell
+   ============================================================ */
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #7a4420, #5c3317);
+    -fx-background-radius: 20;
+    -fx-padding: 18 28;
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 16, 0.15, 0, 4);
+}
+
+.header-bar:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.30), 24, 0.20, 0, 6);
+}
+
+.header-title {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 22;
+    -fx-font-weight: BOLD;
+    -fx-text-fill: #fdf8f3;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 3, 0.15, 0, 1);
+}
+
+.header-subtitle {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 13;
+    -fx-text-fill: rgba(253, 248, 243, 0.75);
+}
+
+.header-separator {
+    -fx-background-color: rgba(253, 248, 243, 0.20);
+    -fx-pref-height: 1;
+}
+
+
+/* ============================================================
+   PAGE TITLE — inside bento cells
+   ============================================================ */
+.page-title {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 28;
+    -fx-font-weight: BOLD;
+    -fx-text-fill: -caramel;
+}
+
+.page-subtitle {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 14;
+    -fx-text-fill: -latte;
+}
+
+/* Title for bento cells */
+.bento-title {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 12;
+    -fx-font-weight: BOLD;
+    -fx-text-fill: -latte;
+    -fx-padding: 0 0 8 0;
+    -fx-letter-spacing: 0.5;
+}
+
+/* Light title for dark cells */
+.bento-title-light {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 12;
+    -fx-font-weight: BOLD;
+    -fx-text-fill: rgba(253, 248, 243, 0.70);
+    -fx-padding: 0 0 8 0;
+}
+
+
+/* ============================================================
+   CARDS — now styled as bento cells
+   ============================================================ */
+.card {
+    -fx-background-color: #f8f0e6;
+    -fx-background-radius: 18;
+    -fx-padding: 20;
+    -fx-border-color: rgba(180, 140, 100, 0.12);
+    -fx-border-width: 1;
+    -fx-border-radius: 18;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(100, 60, 20, 0.08), 10, 0, 0, 3);
+}
+
+.card:hover {
+    -fx-translate-y: -3;
+    -fx-border-color: rgba(140, 95, 55, 0.30);
+    -fx-effect: dropshadow(gaussian, rgba(140, 90, 30, 0.20), 20, 0.08, 0, 6);
+}
+
+.card:pressed {
+    -fx-translate-y: -1;
+    -fx-effect: dropshadow(gaussian, rgba(100, 60, 20, 0.12), 8, 0, 0, 2);
+}
+
+.card-label {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 11;
+    -fx-font-weight: BOLD;
+    -fx-text-fill: -latte;
+    -fx-padding: 0 0 4 0;
+    -fx-letter-spacing: 0.3;
+}
+
+
+/* ============================================================
+   TABLE VIEW — inside bento-cell-lg
+   ============================================================ */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(160, 110, 65, 0.15);
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-table-cell-border-color: rgba(160, 110, 65, 0.08);
+}
+
+.table-view .column-header-background {
+    -fx-background-color: rgba(140, 90, 45, 0.08);
+    -fx-background-radius: 12 12 0 0;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(160, 110, 65, 0.12);
+    -fx-border-width: 0 0 1 0;
+    -fx-size: 44;
+}
+
+.table-view .column-header .label {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 11;
+    -fx-font-weight: BOLD;
+    -fx-text-fill: -latte;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 12;
+    -fx-letter-spacing: 0.3;
+}
+
+.table-view .table-cell {
+    -fx-font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    -fx-font-size: 13;
+    -fx-text-fill: -milk-foam;
+    -fx-background-color: transparent;
+    -fx-padding: 8 12;
+    -fx-border-color: rgba(160, 110, 65, 0.06);
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -milk-foam;
+    -fx-pref-height: 42;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: rgba(180, 130, 80, 0.04);
+}
+
+.table-row-cell:hover {
+    -fx-background-color: rgba(180, 130, 80, 0.12);
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgba(140, 90, 45, 0.18);
+    -fx-background-radius: 8;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: -caramel;
+    -fx-font-weight: BOLD;
+}
+
+.table-view .placeholder .label {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-text-fill: -latte;
+    -fx-font-size: 14;
+}
+
+
+/* ============================================================
+   SCROLL PANE
+   ============================================================ */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 6;
+    -fx-pref-height: 6;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(140, 95, 55, 0.25);
+    -fx-background-radius: 3;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: rgba(140, 95, 55, 0.50);
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+}
+
+
+/* ============================================================
+   SPINNER — rounded bento style
+   ============================================================ */
+.spinner {
+    -fx-background-color: #ffffff;
+    -fx-border-color: rgba(160, 110, 65, 0.25);
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-pref-height: 44;
+}
+
+.spinner .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: -caramel;
+    -fx-font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    -fx-font-size: 14;
+    -fx-padding: 8 14;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-background-color: rgba(160, 110, 65, 0.08);
+    -fx-background-radius: 0 12 12 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    -fx-background-color: rgba(160, 110, 65, 0.20);
+}
+
+.spinner .increment-arrow,
+.spinner .decrement-arrow {
+    -fx-background-color: -caramel;
+}
+
+.spinner:focused {
+    -fx-border-color: -caramel;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, -caramel-glow-soft, 12, 0.30, 0, 0);
+}
+
+
+/* ============================================================
+   COMBO BOX — pill-shaped bento style
+   ============================================================ */
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: rgba(160, 110, 65, 0.25);
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-pref-height: 44;
+}
+
+.combo-box .list-cell {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 13;
+    -fx-text-fill: -caramel;
+    -fx-background-color: transparent;
+    -fx-padding: 8 14;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #fefcfa;
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(160, 110, 65, 0.20);
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(100,60,20,0.18), 20, 0.05, 0, 6);
+}
+
+.combo-box-popup .list-cell {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 13;
+    -fx-text-fill: -caramel;
+    -fx-background-color: transparent;
+    -fx-padding: 10 18;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: rgba(180, 130, 80, 0.12);
+    -fx-background-radius: 8;
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: rgba(140, 90, 45, 0.18);
+    -fx-background-radius: 8;
+    -fx-text-fill: -caramel;
+    -fx-font-weight: BOLD;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 14;
+}
+
+.combo-box .arrow-button:hover {
+    -fx-background-color: rgba(160, 110, 65, 0.10);
+    -fx-background-radius: 0 12 12 0;
+}
+
+.combo-box .arrow {
+    -fx-background-color: -latte;
+}
+
+.combo-box:focused {
+    -fx-border-color: -caramel;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, -caramel-glow-soft, 12, 0.30, 0, 0);
+}
+
+
+/* ============================================================
+   BUTTONS — rounded pill bento style
+   ============================================================ */
+.btn-primary {
+    -fx-background-color: linear-gradient(to bottom, #7a4420, #5c3317);
+    -fx-text-fill: #fefcfa;
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 14;
+    -fx-font-weight: BOLD;
+    -fx-cursor: hand;
+    -fx-background-radius: 14;
+    -fx-padding: 14 36;
+    -fx-effect: dropshadow(gaussian, rgba(60,30,10,0.25), 10, 0.05, 0, 4);
+}
+
+.btn-primary:hover {
+    -fx-background-color: linear-gradient(to bottom, #8b5028, #6a3d1c);
+    -fx-effect: dropshadow(gaussian, rgba(100,60,20,0.40), 18, 0.15, 0, 0);
+    -fx-translate-y: -2;
+}
+
+.btn-primary:pressed {
+    -fx-background-color: linear-gradient(to bottom, #5c3317, #3d1f0a);
+    -fx-translate-y: 0;
+    -fx-effect: dropshadow(gaussian, rgba(60,30,10,0.15), 6, 0, 0, 2);
+}
+
+.btn-secondary {
+    -fx-background-color: rgba(255, 255, 255, 0.80);
+    -fx-text-fill: -caramel;
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 14;
+    -fx-cursor: hand;
+    -fx-background-radius: 14;
+    -fx-padding: 14 36;
+    -fx-border-color: rgba(140, 95, 55, 0.30);
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(100,60,20,0.06), 8, 0, 0, 2);
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #ffffff;
+    -fx-border-color: rgba(140, 95, 55, 0.50);
+    -fx-translate-y: -2;
+    -fx-effect: dropshadow(gaussian, rgba(140,90,30,0.15), 14, 0.08, 0, 0);
+}
+
+.btn-secondary:pressed {
+    -fx-translate-y: 0;
+    -fx-background-color: rgba(255, 255, 255, 0.60);
+}
+
+.btn-back {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-text-fill: #fefcfa;
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 13;
+    -fx-cursor: hand;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+    -fx-border-color: rgba(253, 248, 243, 0.30);
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+
+.btn-back:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.25);
+    -fx-translate-y: -1;
+}
+
+.btn-generate {
+    -fx-background-color: rgba(255, 255, 255, 0.85);
+    -fx-text-fill: -caramel;
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 13;
+    -fx-cursor: hand;
+    -fx-background-radius: 10;
+    -fx-padding: 10 24;
+    -fx-border-color: rgba(140, 95, 55, 0.25);
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+
+.btn-generate:hover {
+    -fx-background-color: #ffffff;
+    -fx-border-color: rgba(140, 95, 55, 0.45);
+    -fx-translate-y: -2;
+    -fx-effect: dropshadow(gaussian, rgba(140,90,30,0.15), 12, 0.08, 0, 0);
+}
+
+
+/* ============================================================
+   STAT CARDS — bento-cell-md style
+   ============================================================ */
+.stat-card {
+    -fx-background-color: #f8f0e6;
+    -fx-background-radius: 18;
+    -fx-padding: 20 28;
+    -fx-border-width: 0;
+    -fx-border-radius: 18;
+    -fx-spacing: 6;
+    -fx-effect: dropshadow(gaussian, rgba(100,60,20,0.08), 12, 0, 0, 3);
+}
+
+.stat-card:hover {
+    -fx-translate-y: -2;
+    -fx-effect: dropshadow(gaussian, rgba(140,90,30,0.18), 20, 0.08, 0, 6);
+}
+
+.stat-card-wt {
+    -fx-background-color: linear-gradient(to bottom right, #f8f0e6, #f0e4d4);
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.stat-card-wt::before {
+    -fx-background-color: -stat-wt-border;
+}
+
+.stat-card-tat {
+    -fx-background-color: linear-gradient(to bottom right, #f8f0e6, #f2e6d6);
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.stat-label {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 11;
+    -fx-font-weight: BOLD;
+    -fx-text-fill: -latte;
+    -fx-letter-spacing: 0.5;
+}
+
+.stat-value-wt {
+    -fx-font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    -fx-font-size: 36;
+    -fx-font-weight: BOLD;
+    -fx-text-fill: #7a3d10;
+}
+
+.stat-value-tat {
+    -fx-font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    -fx-font-size: 36;
+    -fx-font-weight: BOLD;
+    -fx-text-fill: #9a5520;
+}
+
+.stat-unit {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 11;
+    -fx-text-fill: -latte;
+}
+
+
+/* ============================================================
+   GANTT AREA — inside bento-cell-wide or bento-cell-lg
+   ============================================================ */
+.gantt-box {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+}
+
+.gantt-canvas-wrap {
+    -fx-background-color: #faf6f0;
+    -fx-padding: 12;
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(160, 110, 65, 0.10);
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+}
+
+
+/* ============================================================
+   COMPUTATION BREAKDOWN — bento style
+   ============================================================ */
+.formula-area {
+    -fx-font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    -fx-font-size: 12;
+    -fx-background-color: #faf6f0;
+    -fx-control-inner-background: #faf6f0;
+    -fx-text-fill: #7a3d10;
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(160, 110, 65, 0.15);
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+}
+
+.formula-area .content {
+    -fx-background-color: #faf6f0;
+}
+
+.formula-area:focused {
+    -fx-border-color: rgba(160, 110, 65, 0.35);
+    -fx-border-width: 2;
+}
+
+
+/* ============================================================
+   FORM INPUT — rounded bento style
+   ============================================================ */
+.form-input {
+    -fx-background-color: #ffffff;
+    -fx-border-color: rgba(160, 110, 65, 0.25);
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: -caramel;
+    -fx-font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    -fx-font-size: 13;
+    -fx-padding: 10 14;
+    -fx-pref-height: 42;
+}
+
+.form-input:focused {
+    -fx-border-color: -caramel;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, -caramel-glow-soft, 10, 0.25, 0, 0);
+}
+
+.form-input:hover {
+    -fx-border-color: rgba(140, 90, 45, 0.40);
+}
+
+
+/* ============================================================
+   MISC LABELS
+   ============================================================ */
+.status-label {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 12;
+    -fx-text-fill: -latte;
+}
+
+.quantum-label {
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 14;
+    -fx-text-fill: -caramel;
+}
+
+
+/* ============================================================
+   TITLED PANE (About) — bento accordion style
+   ============================================================ */
+.about-pane {
+    -fx-text-fill: -caramel;
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 13;
+    -fx-font-weight: BOLD;
+}
+
+.about-pane .title {
+    -fx-background-color: #f8f0e6;
+    -fx-background-radius: 14;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 14 18;
+}
+
+.about-pane .title:hover {
+    -fx-background-color: #faf6f0;
+}
+
+.about-pane .content {
+    -fx-background-color: #faf6f0;
+    -fx-background-radius: 0 0 14 14;
+    -fx-padding: 4 18 14 18;
+    -fx-border-color: transparent;
+}
+
+
+/* ============================================================
+   TEXT AREA — bento rounded
+   ============================================================ */
+.text-area {
+    -fx-background-color: #faf6f0;
+    -fx-control-inner-background: #faf6f0;
+    -fx-background-radius: 14;
+    -fx-text-fill: -caramel;
+    -fx-font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    -fx-font-size: 12;
+}
+
+.text-area .content {
+    -fx-background-color: #faf6f0;
+    -fx-background-radius: 14;
+}
+
+.text-area:focused {
+    -fx-border-color: rgba(160, 110, 65, 0.35);
+    -fx-border-width: 2;
+    -fx-border-radius: 14;
+}
+
+
+/* ============================================================
+   TOOLTIP — floating bento pill
+   ============================================================ */
+.tooltip {
+    -fx-background-color: #3d1f0a;
+    -fx-text-fill: #fefcfa;
+    -fx-font-family: 'Plus Jakarta Sans', 'Inter', 'Segoe UI';
+    -fx-font-size: 12;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 10;
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(gaussian, rgba(30,15,5,0.35), 16, 0.10, 0, 6);
+}
+
+
+/* ============================================================
+   COMPARE MODE — highlighted bento cell
+   ============================================================ */
+.compare-best {
+    -fx-background-color: linear-gradient(to bottom right, #f8f0e6, #f0e4d0);
+    -fx-border-color: #8c5a2a;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(140, 90, 42, 0.25), 16, 0.12, 0, 0);
+}
+
+.compare-best:hover {
+    -fx-border-color: #a06a35;
+    -fx-effect: dropshadow(gaussian, rgba(160, 110, 50, 0.40), 24, 0.18, 0, 0);
+}
+
+
+/* ============================================================
+   ANIMATION HOOKS
+   ============================================================ */
+.animating-highlight {
+    -fx-background-color: rgba(212, 165, 116, 0.40);
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(200, 150, 60, 0.45), 20, 0.20, 0, 0);
+}
+
+.animating-pulse {
+    -fx-effect: dropshadow(gaussian, rgba(160, 110, 50, 0.50), 24, 0.30, 0, 0);
+}
+
+.animating-fadein {
+    -fx-opacity: 0;
+}
+
+.animating-slidein {
+    -fx-translate-y: 16;
+    -fx-opacity: 0;
+}

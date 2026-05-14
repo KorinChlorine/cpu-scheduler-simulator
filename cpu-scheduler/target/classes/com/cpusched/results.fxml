@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane fx:id="rootPane"
+      xmlns="http://javafx.com/javafx/11"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cpusched.ResultController"
+      stylesheets="@primary.css">
+
+    <VBox spacing="0">
+        <!-- Header Bar -->
+        <HBox styleClass="header-bar" alignment="CENTER_LEFT">
+            <Button text="← Back" onAction="#onBack" styleClass="btn-back"/>
+            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                <padding><Insets left="15"/></padding>
+                <Label fx:id="algorithmLabel" text="SIMULATION RESULTS" styleClass="header-title"/>
+                <Label fx:id="formulaLegend" text="" styleClass="header-subtitle"/>
+            </VBox>
+        </HBox>
+        <Separator styleClass="header-separator"/>
+
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+            <VBox spacing="14" styleClass="result-scroll-content">
+
+                <!-- ── Gantt Chart card (single mode) ── -->
+                <VBox styleClass="card" spacing="8">
+                    <Label text="▸  GANTT CHART" styleClass="card-label"/>
+                    <!-- ganttContainer is the inner VBox that receives the GanttCanvas -->
+                    <ScrollPane fitToHeight="true" prefHeight="100" minHeight="90"
+                                styleClass="scroll-pane" vbarPolicy="NEVER">
+                        <VBox fx:id="ganttContainer" spacing="4" style="-fx-padding: 4;"/>
+                    </ScrollPane>
+                </VBox>
+
+                <!-- ── Compare Mode Panel ── -->
+                <VBox fx:id="comparePanel" spacing="10" visible="false" managed="false">
+                    <Label text="▸  ALGORITHM COMPARISON" styleClass="card-label"/>
+                </VBox>
+
+                <!-- ── Metrics Table ── -->
+                <VBox styleClass="card" spacing="8">
+                    <Label text="▸  PROCESS METRICS" styleClass="card-label"/>
+                    <TableView fx:id="metricsTable" prefHeight="220" minHeight="160" styleClass="table-view">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                        <columns>
+                            <TableColumn fx:id="mColId"  text="Process"    minWidth="50"/>
+                            <TableColumn fx:id="mColAT"  text="Arrival"    minWidth="50"/>
+                            <TableColumn fx:id="mColBT"  text="Burst"      minWidth="50"/>
+                            <TableColumn fx:id="mColCT"  text="Completion" minWidth="60"/>
+                            <TableColumn fx:id="mColWT"  text="Wait"       minWidth="50"/>
+                            <TableColumn fx:id="mColTAT" text="Turnaround" minWidth="60"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- ── Averages ── -->
+                <FlowPane hgap="16" vgap="16" alignment="CENTER" columnHalignment="CENTER">
+                    <VBox styleClass="stat-card stat-card-wt" spacing="6" alignment="CENTER" prefWidth="240">
+                        <Label text="AVG WAITING TIME"    styleClass="stat-label"/>
+                        <Label fx:id="avgWTLabel"  text="0.00" styleClass="stat-value-wt"/>
+                        <Label text="units" styleClass="stat-unit"/>
+                    </VBox>
+                    <VBox styleClass="stat-card stat-card-tat" spacing="6" alignment="CENTER" prefWidth="240">
+                        <Label text="AVG TURNAROUND TIME" styleClass="stat-label"/>
+                        <Label fx:id="avgTATLabel" text="0.00" styleClass="stat-value-tat"/>
+                        <Label text="units" styleClass="stat-unit"/>
+                    </VBox>
+                </FlowPane>
+
+                <!-- ── Computation Breakdown ── -->
+                <VBox styleClass="card" spacing="8">
+                    <Label text="▸  COMPUTATION BREAKDOWN" styleClass="card-label"/>
+                    <TextArea fx:id="formulaArea" styleClass="formula-area" editable="false"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</StackPane>

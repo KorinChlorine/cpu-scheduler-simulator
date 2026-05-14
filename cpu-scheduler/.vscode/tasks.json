@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build and Run CPU Scheduler",
+			"type": "shell",
+			"command": "mvn clean javafx:run",
+			"group": "build"
+		}
+	]
+}

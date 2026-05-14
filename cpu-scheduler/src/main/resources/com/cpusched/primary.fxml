@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane fx:id="rootPane"
+      xmlns="http://javafx.com/javafx/11"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cpusched.PrimaryController"
+      stylesheets="@primary.css">
+
+    <VBox styleClass="root-vbox" spacing="14">
+        <!-- Title Block -->
+        <VBox spacing="4">
+            <Label text="CPU SCHEDULING SIMULATOR" styleClass="page-title"/>
+            <Label text="Configure and run your scheduling algorithm below" styleClass="page-subtitle"/>
+            <Separator styleClass="title-separator"/>
+        </VBox>
+
+        <!-- Process Count Card -->
+        <VBox styleClass="card">
+            <Label text="PROCESS COUNT" styleClass="card-label"/>
+            <HBox spacing="14" alignment="CENTER_LEFT">
+                <Spinner fx:id="processCountSpinner" prefWidth="100" editable="false" styleClass="spinner">
+                    <valueFactory>
+                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="2" max="10" initialValue="5"/>
+                    </valueFactory>
+                </Spinner>
+                <Button text="Generate Table" onAction="#onGenerateTable" styleClass="btn-generate"/>
+            </HBox>
+        </VBox>
+
+        <!-- Process Input Form Card -->
+        <VBox styleClass="card" spacing="10">
+            <Label text="PROCESS INPUT FORM" styleClass="card-label"/>
+            <ScrollPane fitToWidth="true" prefHeight="320" maxHeight="420" alignment="TOP_LEFT"
+                        style="-fx-background: transparent;" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+                <VBox fx:id="processInputContainer" spacing="0" style="-fx-padding: 0;"/>
+            </ScrollPane>
+        </VBox>
+
+        <!-- Algorithm Card -->
+        <VBox styleClass="card" spacing="10">
+            <Label text="SCHEDULING ALGORITHM" styleClass="card-label"/>
+            <ComboBox fx:id="algorithmCombo" prefWidth="360" styleClass="combo-box"/>
+            <HBox fx:id="quantumBox" spacing="14" alignment="CENTER_LEFT" managed="false" visible="false">
+                <Label text="Time Quantum" styleClass="quantum-label"/>
+                <Spinner fx:id="quantumSpinner" prefWidth="100" editable="true" styleClass="spinner">
+                    <valueFactory>
+                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="20" initialValue="2"/>
+                    </valueFactory>
+                </Spinner>
+            </HBox>
+        </VBox>
+
+        <!-- Status -->
+        <Label fx:id="statusLabel" styleClass="status-label"/>
+
+        <!-- Actions -->
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Button text="▶  Run Simulation" onAction="#onRunSimulation" styleClass="btn-primary"/>
+            <Button text="↺  Reset"          onAction="#onReset"          styleClass="btn-secondary"/>
+        </HBox>
+
+        <!-- About Section -->
+        <TitledPane text="ℹ  ABOUT THE SIMULATOR" animated="false" styleClass="about-pane">
+            <ScrollPane fitToWidth="true" prefHeight="220" style="-fx-background: transparent;"
+                        hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+                <content>
+                    <VBox spacing="8" style="-fx-padding: 12;">
+                        <Label wrapText="true"
+                            text="Demonstrates CPU scheduling algorithms used by operating systems. Visualizes process execution order based on arrival time, burst time, priority, and time quantum."
+                            style="-fx-text-fill: #c87941; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                        <Label wrapText="true" text="FCFS: Non-preemptive. Execute in arrival order. Simple but can cause convoy effect."
+                            style="-fx-text-fill: #a07860; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                        <Label wrapText="true" text="SJF: Shortest burst time first. Minimizes avg WT but risks starvation."
+                            style="-fx-text-fill: #a07860; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                        <Label wrapText="true" text="SRT: Preemptive SJF. More responsive. Higher context-switch overhead."
+                            style="-fx-text-fill: #a07860; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                        <Label wrapText="true" text="Round Robin: Each process gets a time quantum. Fair for time-sharing systems."
+                            style="-fx-text-fill: #a07860; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                        <Label wrapText="true" text="Priority: Higher priority (lower number) executes first."
+                            style="-fx-text-fill: #a07860; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12;"/>
+                        <Label wrapText="true" text="★ Compare All: Runs all 6 algorithms side-by-side and highlights best results."
+                            style="-fx-text-fill: #c87941; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12; -fx-font-weight: bold;"/>
+                        <Label wrapText="true" text="Metrics:  WT = TAT − BT   |   TAT = CT − AT   |   CT = completion time"
+                            style="-fx-text-fill: #c87941; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12; -fx-font-weight: bold;"/>
+                        <Label wrapText="true" text="Developer: Kharl Asuncion"
+                            style="-fx-text-fill: #c87941; -fx-font-family: 'Inter', 'Segoe UI', sans-serif; -fx-font-size: 12; -fx-font-weight: bold;"/>
+                    </VBox>
+                </content>
+            </ScrollPane>
+        </TitledPane>
+    </VBox>
+</StackPane>
