@@ -22,10 +22,8 @@ public class Scheduler {
         return copies;
     }
 
-    // 1. FIRST-COME, FIRST-SERVED (FCFS) — Non-Preemptive
     public static SchedulingResult fcfs(List<Process> input) {
         List<Process> processes = copyAndReset(input);
-        // Sort by arrival time; ties broken by process ID order
         processes.sort(Comparator.comparingInt(Process::getArrivalTime)
                 .thenComparing(Process::getId));
 
@@ -33,7 +31,6 @@ public class Scheduler {
         int currentTime = 0;
 
         for (Process p : processes) {
-            // If CPU is idle (no process yet arrived), fast-forward time
             if (currentTime < p.getArrivalTime()) {
                 gantt.add(new GanttEntry("IDLE", currentTime, p.getArrivalTime()));
                 currentTime = p.getArrivalTime();
@@ -42,7 +39,6 @@ public class Scheduler {
             int start = currentTime;
             int end = currentTime + p.getBurstTime();
 
-            // Compute metrics
             p.setCompletionTime(end);
             p.setTurnaroundTime(end - p.getArrivalTime());
             p.setWaitingTime(p.getTurnaroundTime() - p.getBurstTime());
@@ -55,9 +51,7 @@ public class Scheduler {
     }
 
     // =========================================================
-    // 2. SHORTEST JOB FIRST (SJF) — Non-Preemptive
-    // Among all arrived processes, the one with the shortest burst
-    // time is selected next. Optimal average WT but may starve long processes.
+    // SHORTEST JOB FIRST (SJF) — Non-Preemptive
     // =========================================================
     public static SchedulingResult sjf(List<Process> input) {
         List<Process> processes = copyAndReset(input);
@@ -68,14 +62,12 @@ public class Scheduler {
         int currentTime = 0;
 
         while (!remaining.isEmpty()) {
-            // Get all processes that have arrived by currentTime
             List<Process> available = new ArrayList<>();
             for (Process p : remaining) {
                 if (p.getArrivalTime() <= currentTime) available.add(p);
             }
 
             if (available.isEmpty()) {
-                // No process available — CPU is idle; jump to next arrival
                 int nextArrival = remaining.stream()
                         .mapToInt(Process::getArrivalTime).min().orElse(currentTime + 1);
                 gantt.add(new GanttEntry("IDLE", currentTime, nextArrival));
@@ -83,7 +75,6 @@ public class Scheduler {
                 continue;
             }
 
-            // Choose process with shortest burst time (ties: by arrival, then ID)
             available.sort(Comparator.comparingInt(Process::getBurstTime)
                     .thenComparingInt(Process::getArrivalTime)
                     .thenComparing(Process::getId));
@@ -106,9 +97,7 @@ public class Scheduler {
     }
 
     // =========================================================
-    // 3. SHORTEST REMAINING TIME (SRT) — Preemptive SJF
-    // At each time unit, the process with the least remaining burst
-    // time runs. If a new arrival has shorter remaining time, it preempts.
+    // SHORTEST REMAINING TIME (SRT) — Preemptive SJF
     // =========================================================
     public static SchedulingResult srt(List<Process> input) {
         List<Process> processes = copyAndReset(input);
@@ -124,7 +113,6 @@ public class Scheduler {
         int blockStart = 0;
 
         while (completedCount < n) {
-            // Get available (arrived, not finished) processes
             Process selected = null;
             int minRemaining = Integer.MAX_VALUE;
 
@@ -138,7 +126,6 @@ public class Scheduler {
             }
 
             if (selected == null) {
-                // CPU idle
                 if (!lastProcessId.equals("IDLE")) {
                     if (!lastProcessId.isEmpty()) gantt.add(new GanttEntry(lastProcessId, blockStart, currentTime));
                     blockStart = currentTime;
@@ -148,7 +135,6 @@ public class Scheduler {
                 continue;
             }
 
-            // If the running process changed, close the previous Gantt block
             if (!selected.getId().equals(lastProcessId)) {
                 if (!lastProcessId.isEmpty()) {
                     gantt.add(new GanttEntry(lastProcessId, blockStart, currentTime));
@@ -157,7 +143,6 @@ public class Scheduler {
                 lastProcessId = selected.getId();
             }
 
-            // Record first start time for this process
             if (!selected.isStarted()) {
                 selected.setStartTime(currentTime);
                 selected.setStarted(true);
@@ -166,7 +151,6 @@ public class Scheduler {
             selected.setRemainingTime(selected.getRemainingTime() - 1);
             currentTime++;
 
-            // Check if process just finished
             if (selected.getRemainingTime() == 0) {
                 completedCount++;
                 selected.setCompletionTime(currentTime);
@@ -175,7 +159,6 @@ public class Scheduler {
             }
         }
 
-        // Close the last Gantt block
         if (!lastProcessId.isEmpty()) {
             gantt.add(new GanttEntry(lastProcessId, blockStart, currentTime));
         }
@@ -184,10 +167,7 @@ public class Scheduler {
     }
 
     // =========================================================
-    // 4. ROUND ROBIN (RR)
-    // Each process gets a fixed time slice (quantum). If it doesn't
-    // finish within its quantum, it's preempted and moved to the back
-    // of the ready queue. Fair but has higher context switch overhead.
+    // ROUND ROBIN (RR)
     // =========================================================
     public static SchedulingResult roundRobin(List<Process> input, int quantum) {
         List<Process> processes = copyAndReset(input);
@@ -201,7 +181,6 @@ public class Scheduler {
         int completedCount = 0;
         int n = processes.size();
 
-        // Enqueue processes that arrive at time 0
         Iterator<Process> it = notArrived.iterator();
         while (it.hasNext()) {
             Process p = it.next();
@@ -213,12 +192,10 @@ public class Scheduler {
 
         while (completedCount < n) {
             if (readyQueue.isEmpty()) {
-                // CPU idle — jump to next arrival
                 if (!notArrived.isEmpty()) {
                     int nextArrival = notArrived.get(0).getArrivalTime();
                     gantt.add(new GanttEntry("IDLE", currentTime, nextArrival));
                     currentTime = nextArrival;
-                    // Enqueue all processes that have now arrived
                     it = notArrived.iterator();
                     while (it.hasNext()) {
                         Process p = it.next();
@@ -236,7 +213,6 @@ public class Scheduler {
             int start = currentTime;
             int end = currentTime + execTime;
 
-            // Record first CPU time
             if (!current.isStarted()) {
                 current.setStartTime(start);
                 current.setStarted(true);
@@ -246,7 +222,6 @@ public class Scheduler {
             current.setRemainingTime(current.getRemainingTime() - execTime);
             currentTime = end;
 
-            // Enqueue newly arrived processes BEFORE re-queuing the current process
             it = notArrived.iterator();
             while (it.hasNext()) {
                 Process p = it.next();
@@ -257,13 +232,11 @@ public class Scheduler {
             }
 
             if (current.getRemainingTime() == 0) {
-                // Process finished
                 current.setCompletionTime(currentTime);
                 current.setTurnaroundTime(currentTime - current.getArrivalTime());
                 current.setWaitingTime(current.getTurnaroundTime() - current.getBurstTime());
                 completedCount++;
             } else {
-                // Not finished — re-add to back of queue
                 readyQueue.add(current);
             }
         }
@@ -272,10 +245,7 @@ public class Scheduler {
     }
 
     // =========================================================
-    // 5. PRIORITY SCHEDULING — Non-Preemptive
-    // Among arrived processes, the one with the highest priority
-    // (LOWER numeric value = higher priority) is selected next.
-    // May cause starvation of low-priority processes.
+    // PRIORITY SCHEDULING — Non-Preemptive
     // =========================================================
     public static SchedulingResult priorityNonPreemptive(List<Process> input) {
         List<Process> processes = copyAndReset(input);
@@ -286,7 +256,6 @@ public class Scheduler {
         int currentTime = 0;
 
         while (!remaining.isEmpty()) {
-            // Get all processes that have arrived
             List<Process> available = new ArrayList<>();
             for (Process p : remaining) {
                 if (p.getArrivalTime() <= currentTime) available.add(p);
@@ -299,7 +268,6 @@ public class Scheduler {
                 continue;
             }
 
-            // Select process with lowest priority number (= highest priority)
             available.sort(Comparator.comparingInt(Process::getPriority)
                     .thenComparingInt(Process::getArrivalTime)
                     .thenComparing(Process::getId));
@@ -322,20 +290,15 @@ public class Scheduler {
     }
 
     // =========================================================
-    // 6. PRIORITY SCHEDULING WITH ROUND ROBIN
-    // Processes with the same priority are scheduled using Round Robin.
-    // Higher-priority groups are fully served before lower-priority groups.
-    // Lower numeric priority value = higher priority.
+    // PRIORITY SCHEDULING WITH ROUND ROBIN
     // =========================================================
     public static SchedulingResult priorityWithRoundRobin(List<Process> input, int quantum) {
         List<Process> processes = copyAndReset(input);
         List<GanttEntry> gantt = new ArrayList<>();
 
-        // Sort all processes by priority (lower = higher), then arrival
         processes.sort(Comparator.comparingInt(Process::getPriority)
                 .thenComparingInt(Process::getArrivalTime));
 
-        // Group processes by priority level
         Map<Integer, List<Process>> priorityGroups = new LinkedHashMap<>();
         for (Process p : processes) {
             priorityGroups.computeIfAbsent(p.getPriority(), k -> new ArrayList<>()).add(p);
@@ -343,23 +306,19 @@ public class Scheduler {
 
         int currentTime = 0;
 
-        // Process each priority group using Round Robin
         for (Map.Entry<Integer, List<Process>> entry : priorityGroups.entrySet()) {
             List<Process> group = entry.getValue();
-            // Sort group by arrival time
             group.sort(Comparator.comparingInt(Process::getArrivalTime));
 
             Queue<Process> queue = new LinkedList<>();
             List<Process> pending = new ArrayList<>(group);
 
-            // Advance time to first arrival in this group if needed
             int firstArrival = pending.get(0).getArrivalTime();
             if (currentTime < firstArrival) {
                 gantt.add(new GanttEntry("IDLE", currentTime, firstArrival));
                 currentTime = firstArrival;
             }
 
-            // Initially enqueue arrived processes in this group
             Iterator<Process> it = pending.iterator();
             while (it.hasNext()) {
                 Process p = it.next();
@@ -369,7 +328,6 @@ public class Scheduler {
                 }
             }
 
-            // Run Round Robin within this priority group
             while (!queue.isEmpty() || !pending.isEmpty()) {
                 if (queue.isEmpty()) {
                     int nextArrival = pending.get(0).getArrivalTime();
@@ -400,7 +358,6 @@ public class Scheduler {
                 current.setRemainingTime(current.getRemainingTime() - execTime);
                 currentTime = end;
 
-                // Enqueue newly arrived processes in this group
                 it = pending.iterator();
                 while (it.hasNext()) {
                     Process p = it.next();
@@ -421,5 +378,73 @@ public class Scheduler {
         }
 
         return new SchedulingResult("Priority + Round Robin (Q=" + quantum + ")", gantt, processes);
+    }
+
+    // =========================================================
+    // PRIORITY SCHEDULING — Preemptive
+    // =========================================================
+    public static SchedulingResult priorityPreemptive(List<Process> input) {
+        List<Process> processes = copyAndReset(input);
+        List<GanttEntry> gantt = new ArrayList<>();
+
+        int n = processes.size();
+        int completedCount = 0;
+        int currentTime = 0;
+
+        String lastProcessId = "";
+        int blockStart = 0;
+
+        while (completedCount < n) {
+            Process selected = null;
+            int maxPriority = Integer.MAX_VALUE;
+
+            for (Process p : processes) {
+                if (p.getArrivalTime() <= currentTime && p.getRemainingTime() > 0) {
+                    if (p.getPriority() < maxPriority) {
+                        maxPriority = p.getPriority();
+                        selected = p;
+                    }
+                }
+            }
+
+            if (selected == null) {
+                if (!lastProcessId.equals("IDLE")) {
+                    if (!lastProcessId.isEmpty()) gantt.add(new GanttEntry(lastProcessId, blockStart, currentTime));
+                    blockStart = currentTime;
+                    lastProcessId = "IDLE";
+                }
+                currentTime++;
+                continue;
+            }
+
+            if (!selected.getId().equals(lastProcessId)) {
+                if (!lastProcessId.isEmpty()) {
+                    gantt.add(new GanttEntry(lastProcessId, blockStart, currentTime));
+                }
+                blockStart = currentTime;
+                lastProcessId = selected.getId();
+            }
+
+            if (!selected.isStarted()) {
+                selected.setStartTime(currentTime);
+                selected.setStarted(true);
+            }
+
+            selected.setRemainingTime(selected.getRemainingTime() - 1);
+            currentTime++;
+
+            if (selected.getRemainingTime() == 0) {
+                completedCount++;
+                selected.setCompletionTime(currentTime);
+                selected.setTurnaroundTime(currentTime - selected.getArrivalTime());
+                selected.setWaitingTime(selected.getTurnaroundTime() - selected.getBurstTime());
+            }
+        }
+
+        if (!lastProcessId.isEmpty()) {
+            gantt.add(new GanttEntry(lastProcessId, blockStart, currentTime));
+        }
+
+        return new SchedulingResult("Priority (Preemptive, lower = higher priority)", gantt, processes);
     }
 }

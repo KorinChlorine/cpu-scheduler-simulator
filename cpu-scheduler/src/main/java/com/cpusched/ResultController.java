@@ -76,11 +76,9 @@ public class ResultController implements Initializable {
         algorithmLabel.setText("RESULTS — " + singleResult.getAlgorithmName().toUpperCase());
         formulaLegend.setText(FormulaBuilder.legend());
 
-        // Hide compare panel
         comparePanel.setVisible(false);
         comparePanel.setManaged(false);
 
-        // Show single-mode sections
         showSingleModeSections(true);
 
         renderGanttSingle(singleResult);
@@ -96,10 +94,8 @@ public class ResultController implements Initializable {
         algorithmLabel.setText("COMPARE — ALL ALGORITHMS");
         formulaLegend.setText("Highlights best (lowest) average waiting time and turnaround time.");
 
-        // Hide single-mode sections entirely
         showSingleModeSections(false);
 
-        // Show compare panel
         comparePanel.setVisible(true);
         comparePanel.setManaged(true);
         comparePanel.getChildren().clear();
@@ -107,7 +103,6 @@ public class ResultController implements Initializable {
         double bestWT  = compareResults.stream().mapToDouble(SchedulingResult::getAverageWaitingTime).min().orElse(Double.MAX_VALUE);
         double bestTAT = compareResults.stream().mapToDouble(SchedulingResult::getAverageTurnaroundTime).min().orElse(Double.MAX_VALUE);
 
-        // Header label
         Label sectionLbl = new Label("ALGORITHM COMPARISON");
         sectionLbl.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 13; -fx-font-weight: bold; -fx-text-fill: #8a6040; -fx-padding: 0 0 4 0;");
         comparePanel.getChildren().add(sectionLbl);
@@ -122,12 +117,6 @@ public class ResultController implements Initializable {
             VBox card = buildCompareCard(compareResults.get(i), bestWT, bestTAT);
             HBox.setHgrow(card, javafx.scene.layout.Priority.ALWAYS);
             row.getChildren().add(card);
-        }
-        // Pad odd last row
-        if (compareResults.size() % 2 != 0 && row != null) {
-            VBox filler = new VBox();
-            HBox.setHgrow(filler, javafx.scene.layout.Priority.ALWAYS);
-            row.getChildren().add(filler);
         }
 
         toast.showSuccess("Compared " + compareResults.size() + " algorithms.");
@@ -148,7 +137,6 @@ public class ResultController implements Initializable {
         Label algoLbl = new Label(r.getAlgorithmName().toUpperCase());
         algoLbl.setStyle("-fx-font-family: Consolas; -fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #5c3317;");
 
-        // Mini Gantt — use a scrollable wrapper with a fixed-width canvas
         Map<String, String> colorMap = ProcessColors.buildColorMap(r.getGanttChart());
         GanttCanvas miniGantt = new GanttCanvas(r.getGanttChart(), colorMap, 560);
 
@@ -160,7 +148,6 @@ public class ResultController implements Initializable {
         ganttScroll.setHbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED);
         ganttScroll.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
 
-        // Stats row
         HBox stats = new HBox(20);
         stats.setAlignment(Pos.CENTER_LEFT);
         stats.setPadding(new Insets(4, 0, 0, 0));
@@ -181,7 +168,6 @@ public class ResultController implements Initializable {
             stats.getChildren().add(badge);
         }
 
-        // Process metrics mini-table
         VBox metricsBox = buildMiniMetrics(r.getProcesses());
 
         card.getChildren().addAll(algoLbl, ganttScroll, stats, metricsBox);
@@ -192,7 +178,6 @@ public class ResultController implements Initializable {
         VBox box = new VBox(2);
         box.setStyle("-fx-background-color: rgba(200,170,130,0.15); -fx-background-radius: 6; -fx-padding: 6;");
 
-        // Header
         HBox header = miniRow("Process", "AT", "BT", "CT", "WT", "TAT", true);
         box.getChildren().add(header);
 
@@ -208,7 +193,6 @@ public class ResultController implements Initializable {
                 String.valueOf(p.getTurnaroundTime()),
                 false
             );
-            // Color-code WT
             if (p.getWaitingTime() > 10) {
                 dataRow.getChildren().get(4).setStyle("-fx-text-fill: #c0392b; -fx-font-family: Consolas; -fx-font-size: 11;");
             } else {
